@@ -59,7 +59,6 @@ if url:
         # 词云绘制图片
         st.subheader("词云图")
         st.image('love.png')
-        heart_mask_file = st.file_uploader("上传心形遮罩图片", type=["png", "jpg", "jpeg"])
         heart_mask = np.array(Image.open(heart_mask_file))
         # heart_mask_path = 'love.png'
         # heart_mask = np.array(Image.open(heart_mask_path))
