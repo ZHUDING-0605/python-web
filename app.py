@@ -57,7 +57,8 @@ if url:
 
         # 词云绘制图片
         st.subheader("词云图")
-        heart_mask_path = r"C:\Users\萦怀\Desktop\python实训\love.png"
+        heart_mask_path = 'assets/love.png'
+
         heart_mask = np.array(Image.open(heart_mask_path))
 
         # 生成词云图
