@@ -57,12 +57,10 @@ if url:
         st.dataframe(word_freq_df.head(20))
 
         # 词云绘制图片
-        heart_mask_path = 'https://raw.githubusercontent.com/ZHUDING-0605/python-web/master/love.png'
-
-        # 通过 requests 获取图片
-        response = requests.get(heart_mask_path)
-        img = Image.open(BytesIO(response.content))  # 使用 BytesIO 来读取网络图片
-        heart_mask = np.array(img)  # 将图像转换为 NumPy 数组
+        st.subheader("词云图")
+        heart_mask_path = 'uploaded_image.png'
+'
+        heart_mask = np.array(Image.open(heart_mask_path))
 
         # 生成词云图
         wordcloud = wc(
