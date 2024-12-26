@@ -58,10 +58,10 @@ if url:
 
         # 词云绘制图片
         st.subheader("词云图")
-        st.image('love.png')
-        heart_mask = np.array(Image.open(heart_mask_file))
-        # heart_mask_path = 'love.png'
-        # heart_mask = np.array(Image.open(heart_mask_path))
+        
+        
+        heart_mask_path = 'love.png'
+        heart_mask = np.array(Image.open(heart_mask_path))
 
         # 生成词云图
         wordcloud = wc(
