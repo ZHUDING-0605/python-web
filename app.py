@@ -226,7 +226,7 @@ if url:
 
             # 创建 Bokeh 绘图
             p = figure(title="词频直方图", x_axis_label='频率区间', y_axis_label='词汇数量', height=500,
-                        width=1000)
+                        width=800)
             # 绘制直方图
             p.quad(top=hist_data, bottom=0, left=bins[:-1], right=bins[1:], fill_color="lightblue", line_color="white",
                     alpha=0.6)
