@@ -107,14 +107,14 @@ if url:
                 y=y_data,  # y轴显示频率
                 text=y_data,  # 在柱状图上方显示频率值
                 textposition='outside',  # 设置文字显示位置
+                marker=dict(color='#A7B9D6')  # 设置柱状图颜色为雾霾蓝
             )])
             # 更新图表布局
             fig.update_layout(
                 title="词频柱状图",  # 图表的标题
                 xaxis_title="词语",  # x轴的标题
                 yaxis_title="频率",  # y轴的标题
-                xaxis_tickangle=45,  # 设置x轴标签的旋转角度
-                marker=dict(color='#A7B9D6')  # 设置柱状图颜色为雾霾蓝
+                xaxis_tickangle=45,  # 设置x轴标签的旋转角度  
             )
             # 生成图表的 HTML 代码
             bar_chart_html = fig.to_html(full_html=False)
