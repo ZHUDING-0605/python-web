@@ -223,8 +223,6 @@ if url:
                     if bins[i] <= freq < bins[i + 1]:
                         hist_data[i] += 1
                         break
-
-           st.bokeh_chart(p)
             histogram_chart = (
                 Bar()
                 .add_xaxis([f"{bins[i]}-{bins[i + 1]}" for i in range(len(bins) - 1)])  # 区间范围
