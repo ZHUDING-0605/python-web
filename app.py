@@ -114,6 +114,7 @@ if url:
                 xaxis_title="词语",  # x轴的标题
                 yaxis_title="频率",  # y轴的标题
                 xaxis_tickangle=45,  # 设置x轴标签的旋转角度
+                marker=dict(color='#A7B9D6')  # 设置柱状图颜色为雾霾蓝
             )
             # 生成图表的 HTML 代码
             bar_chart_html = fig.to_html(full_html=False)
