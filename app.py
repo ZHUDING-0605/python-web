@@ -18,6 +18,7 @@ import numpy as np
 from PIL import Image
 import altair as alt
 from bokeh.plotting import figure
+import plotly.graph_objects as go
 # 输入文章URL
 st.title("文章词频分析")
 url = st.text_input("请输入文章URL", "")
@@ -96,28 +97,26 @@ if url:
         # 展示前top_n个词
         top_n_filtered = dict(list(top_n_filtered.items())[:top_n])
 
-        # 显示前N个词汇的柱状图
         if chart_type == "柱状图":
             x_data = list(top_n_filtered.keys())
             y_data = list(top_n_filtered.values())  # 得到字典的所有键值
-            bar_chart = (
-                Bar()  # 初始化一个柱状图对象
-                .add_xaxis(x_data)  # x轴显示前N个词
-                .add_yaxis("频率", y_data)  # y轴显示频率
-                # 设置全局的图表选项
-                .set_global_opts(
-                    title_opts=opts.TitleOpts(title="词频柱状图"),  # 图表的标题为“词频柱状图”
-                    xaxis_opts=opts.AxisOpts(name="词语", axislabel_opts=opts.LabelOpts(rotate=45)),
-                    # 旋转x轴标签45度，以便更好地显示长的词汇。
-                    yaxis_opts=opts.AxisOpts(name="频率"),
-                )
-                .set_series_opts(
-                    label_opts=opts.LabelOpts(is_show=True, position="top")  # 在柱状图顶部显示频率值
-                )
 
+            # 使用 Plotly 创建柱状图
+            fig = go.Figure(data=[go.Bar(
+                x=x_data,  # x轴显示前N个词
+                y=y_data,  # y轴显示频率
+                text=y_data,  # 在柱状图上方显示频率值
+                textposition='outside',  # 设置文字显示位置
+            )])
+            # 更新图表布局
+            fig.update_layout(
+                title="词频柱状图",  # 图表的标题
+                xaxis_title="词语",  # x轴的标题
+                yaxis_title="频率",  # y轴的标题
+                xaxis_tickangle=45,  # 设置x轴标签的旋转角度
             )
             # 生成图表的 HTML 代码
-            bar_chart_html = bar_chart.render_embed()
+            bar_chart_html = fig.to_html(full_html=False)
             # 将生成的 HTML 代码嵌入到 Streamlit 页面中
             components.html(bar_chart_html, height=600, width=1000)
 
