@@ -16,6 +16,7 @@ from wordcloud import WordCloud as wc
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
+import altair as alt
 
 # 输入文章URL
 st.title("文章词频分析")
@@ -150,14 +151,24 @@ if url:
             components.html(line_chart_html, height=600, width=1000)
 
         elif chart_type == "散点图":
+            # 准备数据
+            scatter_data = pd.DataFrame({
+                "词语": list(top_n_filtered.keys()),
+                "频率": list(top_n_filtered.values()),
+            })
+            st.subheader("词频散点图（Altair）")
+            # 创建散点图
             scatter_chart = (
-                Scatter()
-                .add_xaxis(list(top_n_filtered.keys()))
-                .add_yaxis("频率", list(top_n_filtered.values()))
-                .set_global_opts(title_opts=opts.TitleOpts(title="词频散点图"))
+                alt.Chart(scatter_data)
+                .mark_circle(size=60)  # 圆形标记，大小60
+                .encode(
+                    x=alt.X("词语:O", axis=alt.Axis(labelAngle=0,tickCount=20, labelOverlap='greedy',labelFontSize=10)),  # 横轴序号标签角度设为0
+                    y="频率:Q",  # 纵轴为频率
+                    tooltip=["词语", "频率"]  # 悬停提示显示词语和频率
+                )
+                .interactive()  # 允许缩放和拖动
             )
-            scatter_chart_html = scatter_chart.render_embed()
-            components.html(scatter_chart_html, height=600, width=1000)
+            st.altair_chart(scatter_chart, use_container_width=True)
 
 
         elif chart_type == "热力图":
