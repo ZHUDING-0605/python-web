@@ -234,7 +234,8 @@ if url:
             for i in range(len(hist_data)-1):
                  p.text(x=(bins[i] + bins[i + 1]) / 2, y=hist_data[i] + 0.5, text=[str(hist_data[i])],
                         text_align="center", text_baseline="middle", text_font_size="12pt", color="black")
-
+             # 显示图表
+            st.bokeh_chart(p)
 
     except Exception as e:
         st.error(f"错误信息：{str(e)}")
