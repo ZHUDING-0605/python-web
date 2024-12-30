@@ -224,18 +224,19 @@ if url:
                         hist_data[i] += 1
                         break
 
-            # 创建 Bokeh 绘图
-            p = figure(title="词频直方图", x_axis_label='频率区间', y_axis_label='词汇数量', height=500,
-                        width=1000)
-            # 绘制直方图
-            p.quad(top=hist_data, bottom=0, left=bins[:-1], right=bins[1:], fill_color="lightblue", line_color="white",
-                    alpha=0.6)
-            # 添加显示频数的标签
-            for i in range(len(hist_data)-1):
-                 p.text(x=(bins[i] + bins[i + 1]) / 2, y=hist_data[i] + 0.5, text=[str(hist_data[i])],
-                        text_align="center", text_baseline="middle", text_font_size="12pt", color="black")
-             # 显示图表
-            st.bokeh_chart(p)
+           st.bokeh_chart(p)
+            histogram_chart = (
+                Bar()
+                .add_xaxis([f"{bins[i]}-{bins[i + 1]}" for i in range(len(bins) - 1)])  # 区间范围
+                .add_yaxis("词汇数", hist_data)  # 各个区间的词汇数量
+                .set_global_opts(
+                    title_opts=opts.TitleOpts(title="词频直方图"),
+                    xaxis_opts=opts.AxisOpts(name="频率区间"),
+                    yaxis_opts=opts.AxisOpts(name="词汇数量"),
+                )
+            )
+            histogram_chart_html = histogram_chart.render_embed()
+            components.html(histogram_chart_html, height=600, width=1000)
 
     except Exception as e:
         st.error(f"错误信息：{str(e)}")
