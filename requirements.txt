@@ -8,5 +8,5 @@ wordcloud
 matplotlib
 numpy
 Pillow
-bokeh==2.4.3
+bokeh
 altair
